@@ -1,0 +1,118 @@
+/* ===== RESPONSIVE MOBILE ===== */
+@media(max-width:768px){
+  .top-nav{padding:0 .6rem;gap:.4rem}
+  #hamburger-btn{display:flex!important;flex-shrink:0;padding:4px}
+  .logo{font-size:16px;flex-shrink:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:150px}
+  .nav-links{display:none}
+  .search-wrap{flex:1 1 auto;min-width:0;max-width:70px;position:relative}
+  .nav-search{min-width:0;width:100%;box-sizing:border-box;padding:6px 6px;gap:3px}
+  .nav-search svg{width:13px;height:13px}
+  .nav-search input,#search-input{font-size:11px}
+  /* Al tocar la lupa, se expande a un cuadro de búsqueda de tamaño normal.
+     Usamos position:absolute (no fixed) porque .top-nav es position:sticky,
+     y varios Chrome/WebView de Android calculan mal un position:fixed anidado
+     dentro de un ancestro sticky (lo encogen y lo desplazan). absolute sí
+     funciona de forma confiable usando .top-nav como referencia. */
+  .search-wrap.search-expanded{
+    max-width:none;
+    position:absolute;
+    top:8px;
+    left:8px;
+    right:8px;
+    z-index:400;
+  }
+  .search-wrap.search-expanded .nav-search{
+    padding:10px 14px;
+    border-radius:22px;
+    box-shadow:0 6px 24px rgba(61,43,38,0.18);
+    background:var(--white);
+  }
+  .search-wrap.search-expanded .nav-search svg{width:16px;height:16px}
+  .search-wrap.search-expanded #search-input{
+    font-size:14px!important;
+    white-space:normal!important;
+  }
+  .search-wrap.search-expanded .search-dropdown{left:0;right:0}
+  .nav-right{flex-shrink:0;gap:.3rem}
+  .nav-cta{padding:6px 9px;font-size:10px;white-space:nowrap}
+  .admin-btn .btn-label,.nav-cta .btn-label{display:none}
+  .admin-btn{padding:7px 9px}
+  .hero{padding:3rem 1.2rem}
+  .hero h1{font-size:34px}
+  .hero-stats{gap:1.5rem}
+  .stat strong{font-size:24px}
+  .apt-grid,.contact-grid{grid-template-columns:1fr}
+  .lookbook-grid{grid-template-columns:1fr}
+  .look-card.featured{grid-column:span 1}
+  .cart-drawer{width:100%;right:-100%}
+  .admin-panel{max-height:100vh;border-radius:0}
+  .admin-sidebar{width:160px}
+  .a-metrics{grid-template-columns:1fr 1fr}
+  .charts-row{grid-template-columns:1fr}
+  .client-panel{max-height:100vh;border-radius:0}
+  .auth-box{margin:1rem;border-radius:14px}
+  .hero-btns{flex-direction:column;align-items:center}
+  .client-btn{display:none}
+  .admin-btn{display:none}
+  .products{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));padding:1rem}
+
+  /* ===== BARRA DE REDES SOCIALES — evita el desborde horizontal en móvil ===== */
+  .social-topbar{padding:6px 1rem;gap:.5rem;justify-content:center}
+  .social-topbar-label{display:none}
+  .social-topbar-links{gap:.4rem}
+  .stb-link{padding:6px 8px;gap:0;font-size:0}
+  .stb-link svg{width:16px;height:16px}
+
+  /* Botón flotante de WhatsApp: más cerca del borde para no chocar con el carrito */
+  .wa-float{bottom:20px;right:16px;width:50px;height:50px}
+
+  /* ===== PANEL ADMIN — MÓVIL ===== */
+  .admin-overlay{padding:0}
+  .admin-panel{width:100vw;height:100vh;max-height:100vh;max-width:100vw;border-radius:0}
+  .admin-header{padding:.7rem .8rem;gap:.5rem}
+  .admin-header>div:first-child{min-width:0;flex:1}
+  .admin-header h2{font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .admin-header p{font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .admin-header>div:last-child{flex-shrink:0;gap:.35rem}
+  .admin-header>div:last-child button:not(.close-btn){padding:5px 9px!important;font-size:9.5px!important;white-space:nowrap}
+  .admin-header .close-btn{width:26px;height:26px;font-size:14px;flex-shrink:0}
+
+  .admin-body{flex-direction:column}
+  .admin-sidebar{width:100%;padding:0;overflow-x:auto;-webkit-overflow-scrolling:touch;flex-shrink:0;border-bottom:1px solid rgba(255,255,255,.08)}
+  .a-nav{flex-direction:row;flex-wrap:nowrap}
+  .a-nav-item{flex-shrink:0;white-space:nowrap;padding:10px .9rem;border-left:none;border-bottom:3px solid transparent;font-size:12px}
+  .a-nav-item.active{border-left-color:transparent;border-bottom-color:var(--rose)}
+  .admin-main{padding:.8rem}
+
+  /* Tablas del admin: scroll horizontal propio en vez de romper el layout */
+  .table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .table-scroll table{min-width:560px}
+
+  /* Formularios rápidos del admin: una sola columna en móvil, aunque tengan estilo inline */
+  .mini-form{grid-template-columns:1fr!important}
+  .mini-form-actions{grid-column:1/-1!important}
+  .mfg[style*="span 3"]{grid-column:1/-1!important}
+
+  .a-card-header{flex-direction:column;align-items:flex-start}
+  .a-actions{width:100%;margin-left:0!important}
+  .a-search{width:100%!important;box-sizing:border-box}
+  .filter-bar{gap:.4rem}
+  .filter-bar .a-search{margin-left:0!important;width:100%!important;order:99}
+
+  /* ===== PANEL CLIENTA — MÓVIL ===== */
+  .client-panel-overlay{padding:0}
+  .client-panel{width:100vw;height:100vh;max-height:100vh;max-width:100vw;border-radius:0}
+  .cp-header{padding-top:calc(1.3rem + env(safe-area-inset-top,0px) + 12px)}
+}
+@media(max-width:480px){
+  .hero h1{font-size:28px}
+  .hero p{font-size:15px}
+  .a-metrics{grid-template-columns:1fr 1fr}
+  .cart-badge{width:16px;height:16px;font-size:9px}
+  .logo{max-width:130px}
+  .social-topbar{padding:5px .6rem;gap:.3rem}
+  .social-topbar-links{gap:.25rem}
+  .stb-link{padding:5px 7px}
+  .stb-link svg{width:15px;height:15px}
+}
+

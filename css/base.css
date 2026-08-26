@@ -1,0 +1,12 @@
+*{box-sizing:border-box;margin:0;padding:0}
+html{max-width:100%;overflow-x:hidden}
+body{max-width:100%}
+:root{
+  --rose:#F2A7BE;--rose-light:#FDF0F4;--rose-mid:#E8849F;--rose-deep:#C4607A;
+  --cream:#FAF5F0;--cream-mid:#F0E6DC;--gold:#C9A96E;--brown:#6B4A3E;
+  --text:#3D2B26;--text-muted:#8A6A64;--white:#FFFFFF;
+  --green:#2D7A5F;--green-light:#E8F5F0;--amber:#B87A1A;--amber-light:#FDF5E6;
+  --red:#C0392B;--red-light:#FDECEA;--blue:#2563A8;--blue-light:#EBF2FB;
+  --ff:'Lato',sans-serif;--ffd:'Playfair Display',serif;
+}
+body{font-family:var(--ff);color:var(--text);background:var(--cream);min-height:100vh}

@@ -1,0 +1,415 @@
+/* ============================================================
+   LASHKA — LOOKBOOK  (rediseño completo)
+   Layout: revista de moda, columnas editorial, proporciones fijas
+   ============================================================ */
+
+/* ── FILTROS ── */
+#lookbook-filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: .5rem;
+  padding-bottom: 0;
+}
+#lookbook-filters .filter-btn {
+  padding: 6px 18px;
+  border-radius: 30px;
+  border: 1.5px solid var(--cream-mid);
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: var(--ff);
+  transition: all .18s;
+  letter-spacing: .3px;
+}
+#lookbook-filters .filter-btn:hover,
+#lookbook-filters .filter-btn.active {
+  background: var(--rose-deep);
+  border-color: var(--rose-deep);
+  color: #fff;
+}
+
+/* ── GRID: 3 columnas uniformes ── */
+.lookbook-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr) !important;
+  grid-auto-rows: auto;
+  gap: .75rem !important;
+  padding: 1rem 1.2rem 2rem !important;
+  background: #F9F4F0;
+  max-width: 1100px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* ── TARJETA BASE ── */
+.look-card {
+  border-radius: 14px !important;
+  overflow: hidden !important;
+  position: relative !important;
+  cursor: pointer !important;
+  background: #e8e0d8 !important;
+  border: none !important;
+  display: block !important;
+  box-shadow: 0 3px 18px rgba(61,43,38,0.10) !important;
+  transition: transform .3s cubic-bezier(.4,0,.2,1),
+              box-shadow .3s !important;
+  grid-column: auto !important;
+  grid-row: auto !important;
+}
+.look-card:hover {
+  transform: translateY(-4px) scale(1.01) !important;
+  box-shadow: 0 14px 40px rgba(196,96,122,0.22) !important;
+}
+
+/* Tarjeta featured: fila entera (3 cols), proporción panorámica */
+.look-card.featured {
+  grid-column: 1 / -1 !important;
+  grid-row: auto !important;
+}
+
+/* ── CONTENEDOR DE IMAGEN ── */
+.look-img {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  display: block;
+  background: #ddd8d2;
+  aspect-ratio: 3 / 4;
+}
+
+/* Featured panorámico */
+.look-card.featured .look-img {
+  aspect-ratio: 16 / 7;
+}
+
+/* Sin foto */
+.look-img.no-photo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  font-size: 52px;
+  min-height: 220px;
+}
+.look-card.featured .look-img.no-photo {
+  font-size: 80px;
+}
+
+/* ── SIZER oculto ── */
+
+/* ── SLIDES ──
+   object-fit: contain — se ve la foto completa, sin recortes */
+.look-slide {
+  position: absolute;
+  inset: 6px;
+  width: calc(100% - 12px);
+  height: calc(100% - 12px);
+  border-radius: 10px;
+  object-fit: contain;
+  object-position: center center;
+  opacity: 0;
+  transition: opacity .65s ease;
+  z-index: 0;
+}
+.look-slide.active {
+  opacity: 1;
+  z-index: 1;
+}
+.look-card:hover .look-slide.active {
+  transform: scale(1.04);
+  transition: opacity .65s ease, transform 7s ease;
+}
+
+/* ── VIDEO EN TARJETA ──
+   Mismo encuadre que .look-slide, pero siempre visible (no hace fade) */
+.look-video {
+  position: absolute;
+  inset: 6px;
+  width: calc(100% - 12px);
+  height: calc(100% - 12px);
+  border-radius: 10px;
+  object-fit: contain;
+  object-position: center center;
+  z-index: 1;
+  background: #000;
+}
+/* Insignia "▶" para videos externos (YouTube/Vimeo) que no se pueden
+   autorreproducir silenciosamente dentro de la tarjeta */
+.look-video-play {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+.look-video-play span {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: rgba(20,10,5,.55);
+  backdrop-filter: blur(3px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 16px;
+  box-shadow: 0 3px 14px rgba(0,0,0,.3);
+}
+
+/* ── OVERLAY DEGRADADO ── */
+.look-overlay {
+  position: absolute !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  padding: 3rem 1rem .85rem !important;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(20,10,5,0.45) 50%,
+    rgba(20,10,5,0.80) 100%
+  ) !important;
+  z-index: 3;
+  pointer-events: none;
+}
+.look-overlay h3 {
+  font-family: var(--ffd) !important;
+  font-size: 15px !important;
+  color: #fff !important;
+  margin: 0 0 3px !important;
+  line-height: 1.2;
+  text-shadow: 0 1px 8px rgba(0,0,0,0.5);
+}
+.look-card.featured .look-overlay h3 {
+  font-size: 20px !important;
+}
+.look-overlay span {
+  font-size: 11px !important;
+  color: rgba(255,255,255,.78) !important;
+  text-shadow: 0 1px 4px rgba(0,0,0,.4);
+  display: block;
+}
+
+/* ── SEASON TAG ── */
+.season-tag {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: rgba(255,255,255,.92);
+  color: var(--rose-deep);
+  font-size: 8px;
+  padding: 3px 9px;
+  border-radius: 20px;
+  font-weight: 800;
+  letter-spacing: .8px;
+  text-transform: uppercase;
+  z-index: 5;
+  backdrop-filter: blur(6px);
+}
+
+/* ── EMOJI ── */
+.look-emoji-overlay {
+  position: absolute;
+  bottom: 44px;
+  right: 10px;
+  font-size: 18px;
+  opacity: .88;
+  z-index: 4;
+  pointer-events: none;
+  filter: drop-shadow(0 2px 5px rgba(0,0,0,.4));
+}
+
+/* ── DOTS ── */
+.look-dots {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 4px;
+  z-index: 5;
+  padding: 3px 7px;
+  border-radius: 20px;
+  background: rgba(0,0,0,.22);
+  backdrop-filter: blur(6px);
+  pointer-events: all;
+}
+.look-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.4);
+  cursor: pointer;
+  transition: background .2s, transform .2s;
+}
+.look-dot.active { background:#fff; transform:scale(1.4); }
+.look-dot:hover { background:rgba(255,255,255,.8); }
+
+/* ── EMPTY ── */
+.look-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--text-muted);
+}
+.look-empty span { font-size:48px; display:block; margin-bottom:.8rem; }
+
+/* ============================================================
+   MODAL LOOKBOOK
+   ============================================================ */
+.look-modal-overlay {
+  position:fixed;inset:0;
+  background:rgba(20,10,5,.70);
+  z-index:400;
+  display:none;
+  align-items:flex-end;
+  justify-content:center;
+  backdrop-filter:blur(5px);
+  padding:0;
+}
+.look-modal-overlay.open { display:flex; }
+@media(min-width:640px) {
+  .look-modal-overlay { align-items:center; padding:1.5rem; }
+}
+.look-modal {
+  background:var(--white);
+  width:100%; max-width:580px;
+  border-radius:22px 22px 0 0;
+  max-height:92vh;
+  display:flex; flex-direction:column;
+  animation:slideUp .3s cubic-bezier(.4,0,.2,1);
+  box-shadow:0 -8px 60px rgba(20,10,5,.25);
+  overflow:hidden; position:relative;
+}
+@media(min-width:640px) {
+  .look-modal { border-radius:22px; max-height:88vh; }
+}
+.look-modal-close {
+  position:absolute;top:12px;right:12px;
+  background:rgba(255,255,255,.92);border:none;
+  width:32px;height:32px;border-radius:50%;
+  font-size:14px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--text-muted);
+  box-shadow:0 2px 10px rgba(61,43,38,.18);z-index:5;
+}
+
+/* Hero del modal: altura fija, imagen cubre bien */
+.look-modal-hero {
+  height: 240px;
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+  background: #e8e0d8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.look-modal-hero img {
+  width:calc(100% - 16px);height:calc(100% - 16px);
+  object-fit:contain;
+  object-position:center center;
+  border-radius:12px;
+  display:block;
+}
+
+.look-modal-body { overflow-y:auto; flex:1; padding:1.4rem; }
+.look-modal-header { margin-bottom:1.3rem; }
+.look-modal-header h2 {
+  font-family:var(--ffd);font-size:21px;
+  color:var(--brown);margin-bottom:4px;
+}
+.look-modal-header p {
+  font-size:13px;color:var(--text-muted);line-height:1.6;
+}
+.look-modal-header .season-pill {
+  display:inline-block;
+  background:var(--rose-light);color:var(--rose-deep);
+  font-size:9px;letter-spacing:1.5px;text-transform:uppercase;
+  padding:3px 12px;border-radius:20px;font-weight:700;
+  border:1px solid var(--rose);margin-bottom:.6rem;
+}
+.look-pieces-label {
+  font-size:10px;font-weight:700;letter-spacing:.5px;
+  text-transform:uppercase;color:var(--text-muted);margin-bottom:10px;
+}
+.look-piece-item {
+  display:flex;align-items:center;gap:.9rem;
+  padding:.8rem;background:var(--cream);
+  border-radius:12px;border:1px solid var(--cream-mid);
+  margin-bottom:.5rem;cursor:pointer;transition:all .17s;
+}
+.look-piece-item:hover {
+  border-color:var(--rose);background:var(--rose-light);
+  transform:translateX(3px);
+}
+.look-piece-img {
+  width:52px;height:52px;background:var(--white);
+  border-radius:9px;display:flex;align-items:center;
+  justify-content:center;font-size:22px;flex-shrink:0;
+  border:1px solid var(--cream-mid);overflow:hidden;
+}
+.look-piece-img img { width:calc(100% - 8px);height:calc(100% - 8px);object-fit:contain;border-radius:6px; }
+.look-piece-info { flex:1;min-width:0; }
+.look-piece-info h4 {
+  font-family:var(--ffd);font-size:13px;color:var(--brown);
+  margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.look-piece-info .lp-cat {
+  font-size:10px;color:var(--text-muted);
+  letter-spacing:.5px;text-transform:uppercase;
+}
+.look-piece-price {
+  font-size:14px;font-weight:700;color:var(--rose-deep);flex-shrink:0;
+}
+.look-modal-cta { display:flex;gap:.6rem;margin-top:1.2rem; }
+.look-cta-all {
+  flex:1;padding:12px;background:var(--rose-deep);
+  color:#fff;border:none;border-radius:30px;
+  font-family:var(--ff);font-size:12px;font-weight:700;
+  letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:all .2s;
+}
+.look-cta-all:hover { background:var(--brown); }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 860px) {
+  .lookbook-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    grid-auto-rows: auto !important;
+  }
+  .look-card.featured {
+    grid-column: 1 / -1 !important;
+  }
+  .look-card.featured .look-img {
+    aspect-ratio: 4 / 3 !important;
+  }
+  .look-card {
+    grid-column: auto !important;
+    grid-row: auto !important;
+  }
+}
+
+@media (max-width: 520px) {
+  .lookbook-grid {
+    grid-template-columns: 1fr !important;
+    padding: .75rem !important;
+    gap: .65rem !important;
+  }
+  .look-card,
+  .look-card.featured {
+    grid-column: 1 !important;
+    grid-row: auto !important;
+  }
+  .look-card.featured .look-img,
+  .look-img {
+    aspect-ratio: 3 / 4 !important;
+  }
+}

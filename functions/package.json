@@ -1,0 +1,12 @@
+{
+  "name": "lashka-functions",
+  "description": "Cloud Functions de Lashka - verificación de reCAPTCHA Enterprise (Fraud Defense)",
+  "engines": {
+    "node": "20"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "firebase-functions": "^5.0.0"
+  },
+  "private": true
+}

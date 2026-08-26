@@ -1,0 +1,131 @@
+/* ===== CATALOG ===== */
+.page-header{padding:2.5rem 2rem 1.2rem;background:var(--white);border-bottom:1px solid var(--cream-mid)}
+.page-header h2{font-family:var(--ffd);font-size:32px;color:var(--brown)}
+.page-header p{color:var(--text-muted);font-size:14px;margin-top:5px}
+.filters{display:flex;gap:.6rem;margin-top:1rem;flex-wrap:wrap}
+.filter-btn{padding:7px 18px;border-radius:20px;font-size:12px;letter-spacing:.5px;cursor:pointer;font-family:var(--ff);font-weight:700;border:1px solid var(--cream-mid);background:var(--white);color:var(--text-muted);transition:all .2s}
+.filter-btn.active,.filter-btn:hover{background:var(--rose-deep);color:var(--white);border-color:var(--rose-deep)}
+.products{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:1.4rem;padding:1.8rem 2rem 2.5rem;background:var(--cream)}
+.product-card{background:var(--white);border-radius:16px;overflow:hidden;cursor:pointer;transition:transform .2s,box-shadow .2s;border:1px solid var(--cream-mid)}
+.product-card:hover{transform:translateY(-5px);box-shadow:0 10px 28px rgba(196,96,122,0.18)}
+.product-img{height:190px;display:flex;align-items:center;justify-content:center;font-size:56px;position:relative}
+.product-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#000}
+.product-video-play{position:absolute;inset:0;z-index:2;display:flex;align-items:center;justify-content:center;pointer-events:none}
+.product-video-play span{width:42px;height:42px;border-radius:50%;background:rgba(20,10,5,.55);backdrop-filter:blur(3px);display:flex;align-items:center;justify-content:center;color:#fff;font-size:15px;box-shadow:0 3px 14px rgba(0,0,0,.3)}
+.product-badge{position:absolute;top:12px;right:12px;background:var(--rose-deep);color:var(--white);font-size:10px;padding:3px 10px;border-radius:10px;font-weight:700;letter-spacing:.5px}
+.product-info{padding:1.1rem}
+.product-info h4{font-family:var(--ffd);font-size:15px;color:var(--brown);margin-bottom:2px}
+.product-info .cat{font-size:11px;color:var(--text-muted);letter-spacing:.5px;text-transform:uppercase;margin-bottom:7px}
+.product-info .price{font-size:17px;font-weight:700;color:var(--rose-deep)}
+.add-btn{width:100%;margin-top:10px;padding:9px;background:var(--rose-light);color:var(--rose-deep);border:1px solid var(--rose);border-radius:9px;font-size:12px;font-weight:700;letter-spacing:.5px;cursor:pointer;font-family:var(--ff);transition:all .2s}
+.add-btn:hover{background:var(--rose-deep);color:var(--white)}
+/* ===== TALLAS ===== */
+
+/* ===== MODAL PRODUCTO ===== */
+.prod-modal-overlay{position:fixed;inset:0;background:rgba(61,43,38,0.6);z-index:350;display:none;align-items:flex-end;justify-content:center;backdrop-filter:blur(3px);padding:0}
+.prod-modal-overlay.open{display:flex}
+@media(min-width:640px){.prod-modal-overlay{align-items:center;padding:1.5rem}}
+.prod-modal{background:var(--white);width:100%;max-width:500px;border-radius:24px 24px 0 0;max-height:95vh;display:flex;flex-direction:column;animation:slideUp .32s cubic-bezier(.4,0,.2,1);box-shadow:0 -8px 50px rgba(61,43,38,0.22);overflow:hidden}
+@media(min-width:640px){.prod-modal{border-radius:24px;max-height:90vh}}
+@keyframes slideUp{from{transform:translateY(80px);opacity:0}to{transform:translateY(0);opacity:1}}
+.pm-drag{width:40px;height:4px;background:var(--cream-mid);border-radius:4px;margin:12px auto 6px;flex-shrink:0}
+@media(min-width:640px){.pm-drag{display:none}}
+.pm-scroll{overflow-y:auto;flex:1;-webkit-overflow-scrolling:touch}
+.pm-img{height:320px;display:flex;align-items:center;justify-content:center;font-size:88px;position:relative;background:var(--rose-light);border-radius:16px;margin:0 1.2rem 0;overflow:hidden}
+.pm-badge{position:absolute;top:14px;right:14px;background:var(--rose-deep);color:var(--white);font-size:11px;padding:4px 12px;border-radius:10px;font-weight:700}
+.pm-body{padding:1rem 1.4rem 1.8rem}
+.pm-cat{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);font-weight:700;margin-bottom:4px}
+.pm-nombre{font-family:var(--ffd);font-size:22px;color:var(--brown);margin-bottom:4px}
+.pm-precio{font-size:22px;font-weight:700;color:var(--rose-deep);margin-bottom:10px}
+.pm-desc{font-size:13px;color:var(--text-muted);line-height:1.65;margin-bottom:16px;border-bottom:1px solid var(--cream-mid);padding-bottom:14px}
+.pm-stock{font-size:12px;margin-bottom:14px;padding:7px 14px;border-radius:10px;display:inline-block;font-weight:700}
+.pm-stock.ok{background:var(--green-light);color:var(--green)}
+.pm-stock.low{background:var(--amber-light);color:var(--amber)}
+.pm-stock.out{background:var(--red-light);color:var(--red)}
+.pm-footer{padding:1rem 1.4rem 1.4rem;border-top:1px solid var(--cream-mid);background:var(--white);flex-shrink:0}
+.pm-add{width:100%;padding:15px;background:var(--rose-deep);color:#fff;border:none;border-radius:30px;font-family:var(--ff);font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:all .2s}
+.pm-add:hover{background:var(--brown);transform:translateY(-1px)}
+.pm-add:disabled{background:var(--cream-mid);color:var(--text-muted);cursor:not-allowed;transform:none}
+.pm-close{position:absolute;top:20px;right:24px;background:rgba(255,255,255,0.95);border:none;width:34px;height:34px;border-radius:50%;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text-muted);box-shadow:0 2px 10px rgba(61,43,38,0.18);z-index:10}
+/* ===== LOOKBOOK — estilos en lookbook.css ===== */
+.lookbook-grid{background:#F9F4F0;display:grid;grid-template-columns:1.35fr 1fr 1fr;gap:.75rem;padding:1rem 1.2rem 2rem;box-sizing:border-box}
+
+
+/* ===== CARD SLIDER AUTOPLAY ===== */
+.card-slider-wrap {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.card-slider-track {
+  display: flex;
+  height: 100%;
+  transition: transform 0.45s cubic-bezier(.4,0,.2,1);
+}
+.card-slide {
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Flechas — ocultas por defecto, visibles en hover de la tarjeta */
+.card-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,0.92);
+  border: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 16px;
+  color: var(--brown);
+  box-shadow: 0 2px 8px rgba(61,43,38,0.22);
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.2s;
+  pointer-events: none;
+  padding: 0;
+  line-height: 1;
+}
+.card-arrow-prev { left: 7px; }
+.card-arrow-next { right: 7px; }
+
+/* Mostrar flechas cuando se hace hover en la tarjeta */
+.product-card:hover .card-arrow {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* Dots indicadores */
+.card-dots {
+  position: absolute;
+  bottom: 7px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  z-index: 4;
+}
+.card-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.5);
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+  display: inline-block;
+}
+.card-dot.active {
+  background: #fff;
+  transform: scale(1.25);
+}

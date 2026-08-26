@@ -1,0 +1,21 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /productos_video/{allPaths=**} {
+      allow read: if true;
+      allow write: if request.auth != null
+                   && request.auth.token.email == 'lashkainsumos@gmail.com'
+                   && request.resource.size < 50 * 1024 * 1024
+                   && request.resource.contentType.matches('video/.*');
+      allow delete: if request.auth != null
+                    && request.auth.token.email == 'lashkainsumos@gmail.com';
+    }
+    // Nota: las fotos de perfil de las clientas NO usan Cloud Storage — se
+    // comprimen en el navegador y se guardan como texto base64 directo en
+    // el documento de la clienta en Firestore (ver subirFotoPerfil() en
+    // js/clientes.js). Por eso no hay una regla de "avatars/" aquí; si en
+    // el futuro se vuelve a subir fotos a Storage, hay que agregarla de
+    // nuevo con el mismo patrón que productos_video (allow write solo si
+    // request.auth.uid == uid de la carpeta).
+  }
+}

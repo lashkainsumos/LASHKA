@@ -1,0 +1,64 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Solo esta cuenta puede administrar la tienda (mismo correo que ya
+    // usan storage.rules y ADMIN_EMAIL en js/firebase.js).
+    function esAdmin() {
+      return request.auth != null &&
+             request.auth.token.email == 'lashkainsumos@gmail.com';
+    }
+
+    // ===== PRODUCTOS =====
+    // Catálogo público: cualquiera lo lee (incluso sin sesión), pero solo
+    // el admin puede crear, editar o borrar productos (o el documento
+    // centinela __init_flag__).
+    match /productos/{id} {
+      allow read: if true;
+      allow write: if esAdmin();
+    }
+
+    // ===== CLIENTES =====
+    // Cada clienta puede crear/leer/editar SOLO su propio documento
+    // (identificado por su correo de sesión). El admin puede leer y
+    // administrar todos. Nadie más puede leer la lista completa.
+    match /clientes/{id} {
+      allow read: if esAdmin() ||
+                     (request.auth != null &&
+                      resource.data.correo == request.auth.token.email);
+      allow create: if request.auth != null &&
+                       request.resource.data.correo == request.auth.token.email;
+      allow update: if esAdmin() ||
+                       (request.auth != null &&
+                        resource.data.correo == request.auth.token.email &&
+                        request.resource.data.correo == request.auth.token.email);
+      allow delete: if esAdmin();
+    }
+
+    // ===== MENSAJES DE CONTACTO =====
+    // Cualquier visitante (incluso sin sesión) puede ENVIAR un mensaje
+    // nuevo, pero no puede leer, editar ni borrar mensajes — eso es
+    // exclusivo del admin, para que nadie pueda leer los mensajes de otras
+    // personas ni marcarlos como leídos/borrarlos.
+    match /mensajes/{id} {
+      allow create: if true;
+      allow read, update, delete: if esAdmin();
+    }
+
+    // ===== CITAS / MOVIMIENTOS =====
+    // Datos internos de operación de la tienda: solo el admin.
+    match /citas/{id} {
+      allow read, write: if esAdmin();
+    }
+    match /movimientos/{id} {
+      allow read, write: if esAdmin();
+    }
+
+    // ===== LOOKS (lookbook) =====
+    // Público para lectura (se muestra en el sitio), solo el admin edita.
+    match /looks/{id} {
+      allow read: if true;
+      allow write: if esAdmin();
+    }
+  }
+}

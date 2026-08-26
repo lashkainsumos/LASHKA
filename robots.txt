@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://lashkainsumos-e03dc.web.app/sitemap.xml
